@@ -2,6 +2,9 @@
 
 #### An api to deploy using the auto scaling on AWS
 
+## AWS Ruby SDK Documentation
+http://docs.aws.amazon.com/AWSRubySDK/latest/_index.html
+
 ## Setup
 Run 'bundle install' command to install dependencies
 
