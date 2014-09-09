@@ -13,5 +13,3 @@ class AutoScalingDeployer
 	end	
 
 end
-
-puts AutoScalingDeployer.new('us-umov-vpc-chart').instance_exists_in_load_balancer? 'i-53d55b35'
