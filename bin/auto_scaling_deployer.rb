@@ -13,20 +13,26 @@ class AutoScalingDeployer
 		end	 
 	end	
 
+  def get_ok_intances_in_load_balancer
+    instances_ok = 0
+    @load_balancer.instances.each do |instance|
+      if instance.status.to_s == 'running'
+        instances_ok += 1
+      end  
+    end 
+    return instances_ok
+  end  
+
   def validate_lb_instances_quantity 
-    puts 'Waiting new instance preparation...'
+    puts 'Waiting new instance preparation. This may take some time...'
     count = 0
     
     while count < 60 do 
-      lb_instances_quantity = @load_balancer.instances.count
+      lb_instances_quantity = get_ok_intances_in_load_balancer
       desired_capacity = @auto_scaling_group.desired_capacity
-
-      puts "Instances in lb: #{lb_instances_quantity}"
-      puts "Desired instances in lb: #{desired_capacity}"
-      puts 'Waiting for instances quantity ok in lb. This may take some time...'   
-        
+  
       if lb_instances_quantity == desired_capacity
-        puts 'Instances quantity is ok on lb'
+        puts 'Instance ok. All right.'
         return
       else
         count += 1
@@ -34,7 +40,7 @@ class AutoScalingDeployer
       end  
     end
 
-    puts 'The instances quantity this is not correct. Contact support.'
+    puts 'Instance not initialized. Contact support.'
     exit 1
   end  
 
