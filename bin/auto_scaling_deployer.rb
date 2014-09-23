@@ -5,9 +5,17 @@ class AutoScalingDeployer
   def initialize group
     @group = AWS::AutoScaling::Group.new group
     @load_balancer = @group.load_balancers[0]
-    @instances = @group.auto_scaling_instances
+    @instances = auto_scaling_instances
     @quantity_to_renew = @instances.size
   end
+
+  def auto_scaling_instances
+    auto_scaling_instances = []
+    @load_balancer.instances.each do |instance|
+      auto_scaling_instances << AWS::AutoScaling.new.instances[instance.id]
+    end
+    auto_scaling_instances
+  end  
 
   def do_deploy
     show_initial_message
@@ -69,12 +77,13 @@ class AutoScalingDeployer
   end  
 
   def show_initial_message
+    puts
     puts "Initing deploy process..."
     message = "#{@quantity_to_renew} instances to renew: "
     @instances.each do |instance|
       message << "#{instance.id} | "
     end
     puts message  
-  end  
-  
+  end
+
 end
