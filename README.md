@@ -14,6 +14,7 @@ Configure AWS credentials (http://docs.aws.amazon.com/AWSSdkDocsRuby/latest/Deve
 ## How to run
 Execute deploy.rb passing as argument the name of the auto scaling group. For example:
 
+```
 #!ruby
 
 ruby deploy.rb -g my_group
