@@ -18,13 +18,13 @@ class AutoScalingDeployer
   end  
 
   def do_deploy
-    show_initial_message
+    initial_message
     @instances.each_with_index do |instance, i|
       puts "Renew instance #{i + 1}: #{instance.id}"
       renew(instance) if exists_in_load_balancer?(instance)
     end
     puts "Great deploy successfully completed!!"
-    show_space_line
+    space_line
   end
 
   def exists_in_load_balancer? instance
@@ -50,7 +50,7 @@ class AutoScalingDeployer
     sleep(15) until count_lb_instances == @group.desired_capacity
     @quantity_to_renew -= 1
     puts "New instance ok. All right. Missing #{@quantity_to_renew} instances to renew."
-    show_space_line
+    space_line
   end 
 
   def count_lb_instances
@@ -76,19 +76,19 @@ class AutoScalingDeployer
     @group.update options
   end  
 
-  def show_initial_message
+  def initial_message
     STDOUT.sync = true
-    show_space_line
+    space_line
     puts "Initing deploy process..."
     message = "#{@quantity_to_renew} instances to renew: "
     @instances.each do |instance|
       message << "#{instance.id} | "
     end
     puts message
-    show_space_line
+    space_line
   end
 
-  def show_space_line
+  def space_line
     puts
     puts "#################################################################"
     puts
