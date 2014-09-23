@@ -15,14 +15,18 @@ class AutoScalingDeployer
       auto_scaling_instances << AWS::AutoScaling.new.instances[instance.id]
     end
     auto_scaling_instances
-  end  
+  end 
 
   def do_deploy
     initial_message
+    increase_group_size
+
     @instances.each_with_index do |instance, i|
       puts "Renew instance #{i + 1}: #{instance.id}"
       renew(instance) if exists_in_load_balancer?(instance)
     end
+
+    decrease_group_size
     puts "Great deploy successfully completed!!"
     space_line
   end
@@ -33,24 +37,19 @@ class AutoScalingDeployer
     end
   end 
 
-  def renew instance
-    should_update_max_size = @group.desired_capacity == @group.max_size
-    increase_max_size if should_update_max_size
-      
-    increase_desired_capacity
-    wait_until_instances_ok
-    instance.terminate(true) 
-
-    decrease_max_size if should_update_max_size
-  end
-
-  def wait_until_instances_ok 
+  def renew instance  
     puts 'Waiting new instance preparation. This may take some time...'
-    sleep(30)
-    sleep(15) until count_lb_instances == @group.desired_capacity
+    wait_until_instances_ok
+    instance.terminate(false)
+    wait_until_instances_ok
     @quantity_to_renew -= 1
     puts "New instance ok. All right. Missing #{@quantity_to_renew} instances to renew."
     space_line
+  end
+
+  def wait_until_instances_ok 
+    sleep(30)
+    sleep(15) until count_lb_instances == @group.desired_capacity
   end 
 
   def count_lb_instances
@@ -59,20 +58,23 @@ class AutoScalingDeployer
     end
   end
 
-  def increase_desired_capacity
-    @group.set_desired_capacity @group.desired_capacity + 1
-  end
-
-  def increase_max_size
+  def increase_group_size
+    update_min_size(@group.min_size + 1)
     update_max_size(@group.max_size + 1)
   end
 
-  def decrease_max_size
+  def decrease_group_size
+    update_min_size(@group.min_size - 1)
     update_max_size(@group.max_size - 1)
   end
 
   def update_max_size new_max_size
     options = {:max_size => new_max_size}
+    @group.update options
+  end
+
+  def update_min_size new_min_size
+    options = {:min_size => new_min_size}
     @group.update options
   end  
 
