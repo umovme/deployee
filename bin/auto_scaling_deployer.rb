@@ -26,14 +26,14 @@ class AutoScalingDeployer
   end 
 
   def renew instance
-    should_increase_max_size = @group.desired_capacity == @group.max_size
-    increase_max_size if should_increase_max_size
+    should_update_max_size = @group.desired_capacity == @group.max_size
+    increase_max_size if should_update_max_size
       
     increase_desired_capacity
     wait_until_instances_ok
     instance.terminate(true) 
 
-    decrease_max_size if should_increase_max_size
+    decrease_max_size if should_update_max_size
   end
 
   def wait_until_instances_ok 
