@@ -21,7 +21,7 @@ class AutoScalingDeployer
     show_initial_message
     @instances.each_with_index do |instance, i|
       puts "Renew instance #{i + 1}: #{instance.id}"
-      #renew(instance) if exists_in_load_balancer?(instance)
+      renew(instance) if exists_in_load_balancer?(instance)
     end
     puts "Great deploy successfully completed!!"
     show_space_line
