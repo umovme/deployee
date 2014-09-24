@@ -10,11 +10,9 @@ class AutoScalingDeployer
   end
 
   def auto_scaling_instances
-    auto_scaling_instances = []
-    @load_balancer.instances.each do |instance|
-      auto_scaling_instances << AWS::AutoScaling.new.instances[instance.id]
+    @load_balancer.instances.map do |instance|
+      AWS::AutoScaling.new.instances[instance.id]
     end
-    auto_scaling_instances
   end 
 
   def do_deploy
@@ -22,7 +20,7 @@ class AutoScalingDeployer
     increase_group_size
 
     @instances.each_with_index do |instance, i|
-      puts "Renew instance #{i + 1}: #{instance.id}"
+      puts "Renewing instance #{i + 1}: #{instance.id}"
       renew(instance) if exists_in_load_balancer?(instance)
     end
 
@@ -81,11 +79,9 @@ class AutoScalingDeployer
   def initial_message
     STDOUT.sync = true
     space_line
-    puts "Initing deploy process..."
+    puts "Initiating deploy process..."
     message = "#{@quantity_to_renew} instances to renew: "
-    @instances.each do |instance|
-      message << "#{instance.id} | "
-    end
+    message << @instances.map{|i| i.id}.join('|')
     puts message
     space_line
   end
