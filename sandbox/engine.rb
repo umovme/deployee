@@ -11,9 +11,9 @@ class DeploymentEngine
     puts "Starting deployment. #{@instances.size} to renew"
     before_group @group
     @instances.each_with_index do |instance, i|
-      puts "Starting deployment #{i}. Instance #{instance.id}"
+      puts "Starting deployment #{i + 1}. Instance #{instance.id}"
       deploy_instance instance
-      puts "Finished deployment #{i}. Instance #{instance.id}"
+      puts "Finished deployment #{i + 1}. Instance #{instance.id}"
     end
     after_group @group
     puts "Deployment sucessfully finished"

@@ -1,4 +1,4 @@
-require_relative 'engine'
+require_relative '../engine'
 
 class ComputingPreserveDeployment < DeploymentEngine
 
@@ -33,8 +33,8 @@ class ComputingPreserveDeployment < DeploymentEngine
 
   def wait_until_instances_ok 
     sleep(30)
+    puts "Waiting desired instances to be ok"
     begin
-      puts "Waiting desired instances to be ok"
       sleep(15)
     end until count_ok_lb_instances == @group.desired_capacity
   end 
