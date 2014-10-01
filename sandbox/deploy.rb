@@ -1,5 +1,7 @@
 require 'optparse'
-require_relative 'computing_preserve'
+
+#require all strategies
+Dir[File.join(File.dirname(__FILE__), 'strategy', '**/*.rb')].sort.each {|file| require file }
 
 options = {}
 
@@ -21,7 +23,7 @@ begin
   if not missing.empty?                                            
     puts "Missing options: #{missing.join(', ')}"                 
     puts optparse                                                  
-    exit                                                           
+    exit                                               
   end                                                              
 rescue OptionParser::InvalidOption, OptionParser::MissingArgument      
   puts $!.to_s                                                           
