@@ -31,4 +31,4 @@ rescue OptionParser::InvalidOption, OptionParser::MissingArgument
   exit                                                                   
 end                                                                      
 
-ComputingPreserveDeployment.new(options[:group]).deploy
+AtLeastOneDeployment.new(options[:group]).deploy
