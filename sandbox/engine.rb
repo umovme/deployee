@@ -47,7 +47,4 @@ class DeploymentEngine
   def after_group scale_group
   end
 
-  def count_ok_instances
-  end  
-  
 end
