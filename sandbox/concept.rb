@@ -1,4 +1,15 @@
-class AWSVendotImpl
+class Vendor
+
+  def start_instance instance
+
+  end
+
+  def group_instances group_name
+
+  end
+end
+
+class AWSVendor < Vendor
 
   def start_instance instance
 
