@@ -1,5 +1,3 @@
-require 'aws-sdk'
-
 class DeployRunner
 
   def initialize(strategy)
@@ -8,14 +6,13 @@ class DeployRunner
   end
 
   def run group_name
-    group = AWS::AutoScaling::Group.new group_name
-    @strategy.before_group group
-    deploy group
-    @strategy.after_group group
+    @strategy.before_group group_name
+    deploy group_name
+    @strategy.after_group group_name
   end
 
-  def deploy group
-    instances = @vendor.group_instance group 
+  def deploy group_name
+    instances = @vendor.group_instances group_name 
     instances.each_with_index do |instance, i|
       puts "Starting deployment #{i + 1}. Instance #{instance.id}"
       deploy_instance instance
@@ -25,9 +22,9 @@ class DeployRunner
 
   def deploy_instance instance
     if instance.exists?
-      @strategy.before_instance instance
+      @strategy.before_instance instance.id
       renew instance
-      @strategy.after_instance instance
+      @strategy.after_instance instance.id
     else
       puts "Instance out. Ignored during renew"
     end

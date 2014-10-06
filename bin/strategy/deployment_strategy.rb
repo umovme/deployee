@@ -6,19 +6,19 @@ class DeploymentStrategy
     @vendor = AWSVendor.new
   end
 
-  def before_group scale_group
+  def before_group group_name
   end
 
-  def before_instance instance
+  def before_instance instance_id
   end
 
-  def after_instance instance
+  def after_instance instance_id
   end
 
-  def after_group scale_group
+  def after_group group_name
   end
 
-  def instances_ok?
+  def instances_ok? group_name
   end
 
   def wait_until_instances_ok 
