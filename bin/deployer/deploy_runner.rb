@@ -2,38 +2,39 @@ class DeployRunner
 
   def initialize(strategy)
     @strategy = strategy
-    @vendor = AWSVendor.new
+    @lib = AWSVendor.new
   end
 
   def run group_name
-    @strategy.before_group group_name
+    @strategy.group_name = group_name
+    @strategy.before_group
     deploy group_name
-    @strategy.after_group group_name
+    @strategy.after_group
   end
 
   def deploy group_name
-    instances = @vendor.group_instances group_name 
-    instances.each_with_index do |instance, i|
-      puts "Starting deployment #{i + 1}. Instance #{instance.id}"
-      deploy_instance instance
-      puts "Finished deployment #{i + 1}. Instance #{instance.id}"
+    instances = @lib.group_instances group_name 
+    instances.each_with_index do |instance_id, i|
+      puts "Starting deployment #{i + 1}. Instance #{instance_id}"
+      deploy_instance instance_id
+      puts "Finished deployment #{i + 1}. Instance #{instance_id}"
     end
   end
 
-  def deploy_instance instance
-    if instance.exists?
-      @strategy.before_instance instance.id
-      renew instance
-      @strategy.after_instance instance.id
+  def deploy_instance instance_id
+    if @lib.instance_exists? instance_id
+      @strategy.before_instance instance_id
+      renew instance_id
+      @strategy.after_instance instance_id
     else
       puts "Instance out. Ignored during renew"
     end
   end
 
-  def renew instance  
-    puts "Terminating instance #{instance.id}"
-    instance.terminate(false)
-    puts "Instance #{instance.id} sucessfully terminated"
+  def renew instance_id  
+    puts "Terminating instance #{instance_id}"
+    @lib.terminate_instance(instance_id)
+    puts "Instance #{instance_id} sucessfully terminated"
   end
 
 end

@@ -1,12 +1,14 @@
-require_relative '../vendor/aws_vendor'
+require_relative '../lib/aws_lib'
 
 class DeploymentStrategy
 
+  attr_accessor :group_name
+
   def initialize
-    @vendor = AWSVendor.new
+    @lib = AWSVendor.new
   end
 
-  def before_group group_name
+  def before_group 
   end
 
   def before_instance instance_id
@@ -15,10 +17,10 @@ class DeploymentStrategy
   def after_instance instance_id
   end
 
-  def after_group group_name
+  def after_group 
   end
 
-  def instances_ok? group_name
+  def instances_ok? 
   end
 
   def wait_until_instances_ok 
@@ -26,7 +28,7 @@ class DeploymentStrategy
     sleep(30)
     begin
       sleep(15)
-    end until instances_ok?
+    end until instances_ok? 
   end
 
 end
