@@ -2,17 +2,19 @@ require_relative 'deployment_strategy'
 
 class DoubleCapacityDeployment < DeploymentStrategy
 
-  def before_group
-    @min_size = @lib.group_min_size self.group_name
-    group_size = @lib.group_size self.group_name
+  def before_group group
+    min_size = group.min_size
+    group_size = group.instances.size
 
-    @lib.update_group_size(self.group_name, group_size * 2, @lib.group_max_size(self.group_name) * 2)
-    wait_until_instances_ok self.group_name
-    @lib.update_group_size(self.group_name, @min_size, @lib.group_max_size(self.group_name) / 2)
+    group.update_size(group_size * 2, group.max_size * 2)
+    wait_until_instances_ok group
+    group.update_size(min_size, group.max_size / 2)
   end
 
-  def instances_ok?
-    @lib.count_all_lb_ok_instances(self.group_name) == @lib.group_desired_capacity(self.group_name) 
-  end  
+  def wait_until_instances_ok group
+    wait_until do
+      group.health_load_balancer_instances == group.desired_capacity
+    end
+  end
 
 end

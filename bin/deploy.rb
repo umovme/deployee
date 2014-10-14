@@ -1,7 +1,6 @@
 require 'optparse'
 require_relative 'deployer/deploy_runner'
 
-
 #require all strategies
 Dir[File.join(File.dirname(__FILE__), 'strategy', '**/*.rb')].sort.each {|file| require file }
 
@@ -20,18 +19,18 @@ end
 
 begin
   optparse.parse!
-  mandatory = [:group]                                         
-  missing = mandatory.select{ |param| options[param].nil? }        
-  if not missing.empty?                                            
-    puts "Missing options: #{missing.join(', ')}"                 
-    puts optparse                                                  
-    exit                                               
-  end                                                              
-rescue OptionParser::InvalidOption, OptionParser::MissingArgument      
-  puts $!.to_s                                                           
-  puts optparse                                                          
-  exit                                                                   
-end                                                                      
+  mandatory = [:group]
+  missing = mandatory.select{ |param| options[param].nil? }
+  if not missing.empty?
+    puts "Missing options: #{missing.join(', ')}"
+    puts optparse
+    exit
+  end
+rescue OptionParser::InvalidOption, OptionParser::MissingArgument
+  puts $!.to_s
+  puts optparse
+  exit
+end
 
 strategy = ComputingPreserveDeployment.new
 deploy = DeployRunner.new strategy
