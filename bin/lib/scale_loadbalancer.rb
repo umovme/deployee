@@ -1,8 +1,8 @@
 
 class ScaleLoadBalancer
 
-  def intialize lb
-    @delegate = lb
+  def initialize lb_name
+    @delegate = lb_name
   end
 
   def healthy_instances

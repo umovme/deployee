@@ -33,8 +33,8 @@ class ScaleGroup
   end
 
   def load_balancers
-    @delegate.load_balancers.map do |lb|
-      ScaleLoadBalancer.new lb
+    @delegate.load_balancer_names.map do |lb_name|
+      ScaleLoadBalancer.new lb_name
     end
   end
 
