@@ -1,5 +1,8 @@
 require 'optparse'
-require_relative 'auto_scaling_deployer'
+require_relative 'deployer/deploy_runner'
+
+#require all strategies
+Dir[File.join(File.dirname(__FILE__), 'strategy', '**/*.rb')].sort.each {|file| require file }
 
 options = {}
 
@@ -16,17 +19,19 @@ end
 
 begin
   optparse.parse!
-  mandatory = [:group]                                         
-  missing = mandatory.select{ |param| options[param].nil? }        
-  if not missing.empty?                                            
-    puts "Missing options: #{missing.join(', ')}"                 
-    puts optparse                                                  
-    exit                                                           
-  end                                                              
-rescue OptionParser::InvalidOption, OptionParser::MissingArgument      
-  puts $!.to_s                                                           
-  puts optparse                                                          
-  exit                                                                   
-end                                                                      
+  mandatory = [:group]
+  missing = mandatory.select{ |param| options[param].nil? }
+  if not missing.empty?
+    puts "Missing options: #{missing.join(', ')}"
+    puts optparse
+    exit
+  end
+rescue OptionParser::InvalidOption, OptionParser::MissingArgument
+  puts $!.to_s
+  puts optparse
+  exit
+end
 
-AutoScalingDeployer.new(options[:group]).do_deploy
+strategy = DoubleCapacityDeployment.new
+deploy = DeployRunner.new strategy
+deploy.run options[:group]
