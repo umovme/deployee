@@ -1,8 +1,10 @@
+#!/usr/bin/env ruby
+
 require 'optparse'
-require_relative 'deployer/deploy_runner'
+require_relative '../lib/deployer/deploy_runner'
 
 #require all strategies
-Dir[File.join(File.dirname(__FILE__), 'strategy', '**/*.rb')].sort.each {|file| require file }
+Dir[File.join(File.dirname(__FILE__), '../lib/strategy', '**/*.rb')].sort.each {|file| require File.expand_path(file); }
 
 options = {}
 

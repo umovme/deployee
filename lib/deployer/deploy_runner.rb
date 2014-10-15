@@ -1,4 +1,4 @@
-require_relative '../lib/scale_group'
+require_relative '../aws/scale_group'
 
 class DeployRunner
 
