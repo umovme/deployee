@@ -1,3 +1,6 @@
+require 'aws-sdk'
+require_relative 'scale_instance'
+require_relative 'scale_loadbalancer'
 
 class ScaleGroup
 

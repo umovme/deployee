@@ -1,6 +1,6 @@
-require_relative 'deployment_strategy'
 
-class DoubleCapacityDeployment < DeploymentStrategy
+class DoubleCapacityDeployment
+  include WaitUntil
 
   def before_group group
     min_size = group.min_size

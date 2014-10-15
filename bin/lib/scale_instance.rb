@@ -1,3 +1,4 @@
+require 'aws-sdk'
 
 class ScaleInstance
   attr_reader :group

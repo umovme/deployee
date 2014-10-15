@@ -1,6 +1,7 @@
-require_relative 'deployment_strategy'
+require_relative '../helper/wait_until'
 
-class AtLeastOneDeployment < DeploymentStrategy
+class AtLeastOneDeployment
+  include WaitUntil
 
   def before_group group
     @min_size = group.min_size

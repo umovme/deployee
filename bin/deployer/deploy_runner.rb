@@ -1,3 +1,4 @@
+require_relative '../lib/scale_group'
 
 class DeployRunner
 

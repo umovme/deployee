@@ -1,8 +1,9 @@
+require 'aws-sdk'
 
 class ScaleLoadBalancer
 
   def initialize lb_name
-    @delegate = lb_name
+    @delegate = AWS::ELB::LoadBalancer.new lb_name
   end
 
   def healthy_instances

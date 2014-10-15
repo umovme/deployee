@@ -1,7 +1,7 @@
-require_relative 'deployment_strategy'
 
-class ComputingPreserveDeployment < DeploymentStrategy
-
+class ComputingPreserveDeployment
+  include WaitUntil
+  
   def before_group group
     group.update_size(group.min_size + 1, group.max_size + 1)
   end

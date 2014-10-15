@@ -1,7 +1,6 @@
-require_relative '../lib/aws_lib'
 
-class DeploymentStrategy
-
+module WaitUntil
+  
   def wait_until 
     sleep(30)
     begin
