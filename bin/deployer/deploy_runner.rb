@@ -11,11 +11,11 @@ class DeployRunner
     instances = group.instances
     
     @strategy.before_group(group) if @strategy.respond_to? :before_group
-    deploy group, instances
+    deploy instances
     @strategy.after_group group  if @strategy.respond_to? :after_group
   end
 
-  def deploy group, instances
+  def deploy instances
     instances.each_with_index do |instance, index|
       puts "Starting deployment #{index + 1}. Instance #{instance.id}"
       deploy_instance instance
