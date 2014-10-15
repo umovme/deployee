@@ -6,12 +6,11 @@ class AtLeastOneDeployment
   def before_group group
     @min_size = group.min_size
     max_size = group.max_size
-  
-    if group.desired_capacity == 1
-      group.update_size 2, max_size + 1
-    else
-      group.update_size 1, max_size + 1
-    end
+    new_min_size = 1
+
+    new_min_size = 2 if group.desired_capacity == 1
+      
+    group.update_size new_min_size, max_size + 1
   end
 
   def before_instance instance
