@@ -1,4 +1,4 @@
-# AWS Auto Scaling Deployment
+# Deployee
 
 A tool to simplify deployments using AWS auto scaling engine.
 
@@ -6,7 +6,7 @@ A tool to simplify deployments using AWS auto scaling engine.
 
 #### How deployments should work? 
 The autoscaling engine allows us a new concept of deployment. 
-Basically we promote a new version of an application. When a new instance of an AMI is created. During setup, the latest version of the promoted application is installed on this machine via script.
+Basically we promote a new version of an application. When a new instance of an AMI is created, during setup, the latest version of the promoted application is installed on this machine via script.
 In this model, the concept of deployment is only renew existing machines of a group of scalabilidade.
 
 #### How the deployment is done (here the magic happens)
