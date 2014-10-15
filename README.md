@@ -15,10 +15,10 @@ This tool helps you to renew all instances of a scale group.
 There are several ways to renew instances. We call these ways of strategies. Below is a list of the available strategies. Feel the urge to create your own strategy and send us a pull request.
 
 
-* [At Least One](https://github.com/robsonbittencourt/deployee/wiki/At-Least-One)
-* [Blackout](https://github.com/robsonbittencourt/deployee/wiki/Blackout)
-* [Computing Preserve](https://github.com/robsonbittencourt/deployee/wiki/Computing-Preserve)
-* [Double Capacity](https://github.com/robsonbittencourt/deployee/wiki/Double-Capacity)
+* [At Least One](https://github.com/umovme/deployee/wiki/At-Least-One)
+* [Blackout](https://github.com/umovme/deployee/wiki/Blackout)
+* [Computing Preserve](https://github.com/umovme/deployee/wiki/Computing-Preserve)
+* [Double Capacity](https://github.com/umovme/deployee/wiki/Double-Capacity)
 
 ## Setup
 Install bundle `gem install bundle`
