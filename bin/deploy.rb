@@ -32,6 +32,6 @@ rescue OptionParser::InvalidOption, OptionParser::MissingArgument
   exit
 end
 
-strategy = AtLeastOneDeployment.new
+strategy = DoubleCapacityDeployment.new
 deploy = DeployRunner.new strategy
 deploy.run options[:group]
