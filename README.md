@@ -2,6 +2,8 @@
 
 A tool to simplify deployments using AWS auto scaling engine.
 
+![MIT](https://octodex.github.com/images/constructocat2.jpg)
+
 ## How it works?
 
 #### How deployments should work? 
