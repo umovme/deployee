@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name		    = "deployee"
-  s.version      	= "0.0.1"
+  s.version      	= "0.0.2"
   s.description		= "A tool to simplify deployments using AWS auto scaling engine."
   s.summary   		= ""
   s.author     		= "Eduardo Bohrer, Gabriel Prestes, Guilherme Elias, Robson Bittencourt"
