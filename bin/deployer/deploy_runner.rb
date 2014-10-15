@@ -8,13 +8,15 @@ class DeployRunner
 
   def run group_name
     group = ScaleGroup.new group_name
+    instances = group.instances
+    
     @strategy.before_group(group) if @strategy.respond_to? :before_group
-    deploy group
+    deploy group, instances
     @strategy.after_group group  if @strategy.respond_to? :after_group
   end
 
-  def deploy group
-    group.instances.each_with_index do |instance, index|
+  def deploy group, instances
+    instances.each_with_index do |instance, index|
       puts "Starting deployment #{index + 1}. Instance #{instance.id}"
       deploy_instance instance
       puts "Finished deployment #{index + 1}. Instance #{instance.id}"
