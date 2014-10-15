@@ -15,7 +15,7 @@ class AtLeastOneDeployment
   end
 
   def before_instance instance
-    wait_until_instances_ok
+    wait_until_instances_ok instance.group
   end
 
   def after_group group
