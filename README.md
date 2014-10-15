@@ -7,12 +7,18 @@ A tool to simplify deployments using AWS auto scaling engine.
 #### How deployments should work? 
 The autoscaling engine allows us a new concept of deployment. 
 Basically we promote a new version of an application. When a new instance of an AMI is created, during setup, the latest version of the promoted application is installed on this machine via script.
-In this model, the concept of deployment is only renew existing machines of a group of scalabilidade.
+In this model, the concept of deployment is only renew existing machines of a group of scalability.
 
 #### How the deployment is done (here the magic happens)
 We assume that the issue of promotion and setup is already solved in the setup of AMI.
 This tool helps you to renew all instances of a scale group.
-They will increment the min and max limit of instancies in the scale-group to preserve the computational power of this group. Then will terminate and renew each old instance as well featuring a full deployment.
+There are several ways to renew instances. We call these ways of strategies. Below is a list of the available strategies. Feel the urge to create your own strategy and send us a pull request.
+
+
+* [At Least One](https://github.com/umovme/deployee/wiki/At-Least-One)
+* [Blackout](https://github.com/umovme/deployee/wiki/Blackout)
+* [Computing Preserve](https://github.com/umovme/deployee/wiki/Computing-Preserve)
+* [Double Capacity](https://github.com/umovme/deployee/wiki/Double-Capacity)
 
 ## Setup
 Install bundle `gem install bundle`
