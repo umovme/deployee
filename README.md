@@ -2,7 +2,7 @@
 
 A tool to simplify deployments using AWS auto scaling engine.
 
-![MIT](https://octodex.github.com/images/constructocat2.jpg)
+![Octodex](https://random-octodex.herokuapp.com/random)
 
 ## How it works?
 
