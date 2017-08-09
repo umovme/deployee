@@ -1,0 +1,5 @@
+version: '3'
+services:
+  deployee:
+    build: .
+    image: deployee:1.0
