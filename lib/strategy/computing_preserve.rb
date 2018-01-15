@@ -1,4 +1,3 @@
-
 class ComputingPreserveDeployment
   include WaitUntil
   
@@ -19,8 +18,13 @@ class ComputingPreserveDeployment
   end
 
   def wait_until_instances_ok group
-    wait_until do
-      group.health_load_balancer_instances == group.desired_capacity
+    if group.health_load_balancer_instances.nil?
+      puts "Did you forget the ELB config in the AS Group? Waiting for 90s"
+      sleep(90)
+    else
+      wait_until do
+        group.health_load_balancer_instances == group.desired_capacity
+      end
     end
   end
 
