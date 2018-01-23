@@ -27,8 +27,16 @@ class ScaleGroup
   end
 
   def update_size new_min_size, new_max_size
-    options = {:min_size => new_min_size, :max_size => new_max_size}
+
+    if new_min_size == 0 or new_max_size == 0
+      new_min_size = 1
+      new_max_size = 1
+      puts "leaving with 1 instance online"
+    end
+
+    options = {:min_size => new_min_size, :max_size => new_max_size } 
     @delegate.update options
+    puts "updating size: #{options}"
   end
 
   def health_load_balancer_instances
