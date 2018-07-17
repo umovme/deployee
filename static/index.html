@@ -18,12 +18,12 @@
                     List of AS Groups
                 </h1>
 
-                <div class="field is-horizontal" >
-                    <div class="select">
+                <div class="field is-horizontal">
+                    <div class="select is-large">
                         <select v-model="regionSelected">
-                          <option v-for="(region, index) in regions" :value="region.name"> {{ region.pretty }}</option>
+                            <option v-for="(region, index) in regions" :value="region.name"> {{ region.pretty }}</option>
                         </select>
-                      </div>
+                    </div>
                 </div>
 
                 <div class="field is-horizontal" v-for="(group, index) in asGroups">
@@ -73,7 +73,8 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.25.6/dist/sweetalert2.all.min.js" integrity="sha256-ub2APZG+Hn74PnrMq5cBid8DMQei5g0zrekH2aQ9smU=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.25.6/dist/sweetalert2.all.min.js" integrity="sha256-ub2APZG+Hn74PnrMq5cBid8DMQei5g0zrekH2aQ9smU="
+        crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
     <script src="js/app.js"></script>
 </body>
