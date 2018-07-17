@@ -27,6 +27,11 @@ func main() {
 		http.StripPrefix("/ui/", http.FileServer(
 			http.Dir("static"))))
 
+	// redirects '/' to '/ui/'
+	r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, "/ui/", http.StatusFound)
+	})
+
 	http.Handle("/", r)
 
 	log.Fatal(http.ListenAndServe(":3001", logRequest(http.DefaultServeMux)))
