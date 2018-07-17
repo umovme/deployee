@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Deployee v2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" integrity="sha256-zIG416V1ynj3Wgju/scU80KAEWOsO5rRLfVyRDuOv7Q="
+        crossorigin="anonymous" />
+</head>
+
+<body>
+    <div id="app">
+        <section class="section">
+            <div class="container">
+                <h1 class="title">
+                    List of AS Groups
+                </h1>
+                <div class="field is-horizontal" v-for="(group, index) in asGroups">
+                    <div class="field-label is-expanded">
+                        <label class="label">{{ group.name }}</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field is-expanded has-addons">
+                            <p class="control">
+                                <a class="button is-static">
+                                    Min
+                                </a>
+                            </p>
+                            <p class="control">
+                                <input class="input" type="number" v-model.number="group.min">
+                            </p>
+                        </div>
+                        <div class="field is-normal has-addons">
+                            <p class="control">
+                                <a class="button is-static">
+                                    Max
+                                </a>
+                            </p>
+                            <p class="control">
+                                <input class="input" type="number" v-model.number="group.max">
+                            </p>
+                        </div>
+                        <div class="field is-expanded has-addons">
+                            <p class="control">
+                                <a class="button is-static">
+                                    Current
+                                </a>
+                            </p>
+                            <p class="control">
+                                <input class="input" type="number" v-model.number="group.current">
+                            </p>
+                        </div>
+                        <div class="field is-expanded">
+                            <div class="control">
+                                <button class="button is-primary" v-on:click="update(index, group)">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.25.6/dist/sweetalert2.all.min.js" integrity="sha256-ub2APZG+Hn74PnrMq5cBid8DMQei5g0zrekH2aQ9smU=" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

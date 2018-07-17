@@ -22,6 +22,11 @@ func main() {
 	apiRouter.HandleFunc("/groups", allGroups)
 	apiRouter.HandleFunc("/groups/{id}", editGroup).Methods("OPTIONS", "GET", "PUT")
 
+	// static files on `./static` dir
+	r.PathPrefix("/ui").Handler(
+		http.StripPrefix("/ui/", http.FileServer(
+			http.Dir("static"))))
+
 	http.Handle("/", r)
 
 	log.Fatal(http.ListenAndServe(":3001", logRequest(http.DefaultServeMux)))
