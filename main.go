@@ -56,7 +56,9 @@ func editGroup(w http.ResponseWriter, r *http.Request) {
 
 	provider := getProvider(r)
 
-	err = updateGroup(provider, data)
+	err = func(prop as.Group, group as.GroupDetails) error {
+		return prop.UpdateGroup(group)
+	}(provider, data)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -78,7 +80,9 @@ func allGroups(w http.ResponseWriter, r *http.Request) {
 
 	provider := getProvider(r)
 
-	result, err := getGroups(provider)
+	result, err := func(prop as.Group) ([]as.GroupDetails, error) {
+		return prop.ListGroups()
+	}(provider)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -88,16 +92,6 @@ func allGroups(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(result)
 
-}
-
-func getGroups(prop as.Group) (out []as.GroupDetails, err error) {
-	out, err = prop.ListGroups()
-	return
-}
-
-func updateGroup(prop as.Group, group as.GroupDetails) (err error) {
-	err = prop.UpdateGroup(group)
-	return
 }
 
 func getProvider(r *http.Request) aws.Config {
