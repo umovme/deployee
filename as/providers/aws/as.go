@@ -1,6 +1,7 @@
 package aws
 
 import (
+	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/autoscaling"
 	deployee_as "github.com/umovme/deployee/as"
 )
@@ -32,6 +33,28 @@ func (c Config) ListGroups() (out []deployee_as.GroupDetails, err error) {
 			Current: int32(*awsOut.AutoScalingGroups[i].DesiredCapacity),
 		})
 	}
+
+	return
+}
+
+// UpdateGroup updates AS group configuration
+func (c Config) UpdateGroup(group deployee_as.GroupDetails) (err error) {
+
+	session, err := c.prepareSession()
+	if err != nil {
+		return
+	}
+
+	as := autoscaling.New(session)
+
+	_, err = as.UpdateAutoScalingGroup(
+		&autoscaling.UpdateAutoScalingGroupInput{
+			AutoScalingGroupName: aws.String(group.Name),
+			MaxSize:              aws.Int64(int64(group.Maximum)),
+			MinSize:              aws.Int64(int64(group.Minimum)),
+			DesiredCapacity:      aws.Int64(int64(group.Current)),
+		},
+	)
 
 	return
 }
