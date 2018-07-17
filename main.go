@@ -21,6 +21,7 @@ func main() {
 	apiRouter := r.PathPrefix("/api").Subrouter()
 	apiRouter.HandleFunc("/groups", allGroups)
 	apiRouter.HandleFunc("/groups/{id}", editGroup).Methods("OPTIONS", "GET", "PUT")
+	apiRouter.HandleFunc("/regions", allRegions)
 
 	// static files on `./static` dir
 	r.PathPrefix("/ui").Handler(
@@ -107,4 +108,20 @@ func getProvider(r *http.Request) aws.Config {
 	}
 
 	return provider
+}
+
+func allRegions(w http.ResponseWriter, r *http.Request) {
+
+	type region struct {
+		Name       string `json:"name"`
+		PrettyName string `json:"pretty"`
+	}
+
+	result := []region{
+		region{Name: "sa-east-1", PrettyName: "South Brazil"},
+		region{Name: "us-east-1", PrettyName: "North Virginia"},
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(result)
 }

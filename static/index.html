@@ -17,6 +17,15 @@
                 <h1 class="title">
                     List of AS Groups
                 </h1>
+
+                <div class="field is-horizontal" >
+                    <div class="select">
+                        <select v-model="regionSelected">
+                          <option v-for="(region, index) in regions" :value="region.name"> {{ region.pretty }}</option>
+                        </select>
+                      </div>
+                </div>
+
                 <div class="field is-horizontal" v-for="(group, index) in asGroups">
                     <div class="field-label is-expanded">
                         <label class="label">{{ group.name }}</label>

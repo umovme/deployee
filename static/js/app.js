@@ -1,16 +1,28 @@
-var apiPrefix = '/api/groups';
+var apiPrefix = '/api';
 
 var app = new Vue({
   el: '#app',
   data() {
     return {
-      asGroups : []
+      asGroups : [],
+      regions: [],
+      regionSelected: ""
     }
   },
-  mounted() {
+  created() {
     axios
-      .get(apiPrefix)
-      .then(response => (this.asGroups = response.data))
+      .get(`${apiPrefix}/regions`)
+      .then(response => (this.regions = response.data))
+  },
+  watch: {
+    regions(region) {
+        this.regionSelected = region[0].name
+    },
+    regionSelected(region) {
+        axios
+            .get(`${apiPrefix}/groups?region=${region}`)
+            .then(response => (this.asGroups = response.data))
+    }
   },
   methods: {
     update(index, group) {
@@ -18,7 +30,7 @@ var app = new Vue({
       // debugger
       const vm = this
       axios
-        .put(`${apiPrefix}/${group.name}`, group)
+        .put(`${apiPrefix}/groups/${group.name}`, group)
         .then((response) => {
 
           vm.$set(vm.asGroups, index, response.data)
