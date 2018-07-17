@@ -47,9 +47,7 @@ var app = new Vue({
                 .catch((error) => {
                     swal({
                         type: 'error',
-                        // title: error.message,
                         imageUrl: '/ui/images/xanaina.jpg',
-                        // title: "Ô Xanaina!",
                         text: `${error.response.data}`,
                         showConfirmButton: true,
                     })
