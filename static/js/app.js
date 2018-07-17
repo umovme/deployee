@@ -37,7 +37,8 @@ var app = new Vue({
 
                     swal({
                         type: 'success',
-                        title: 'Deu certo!',
+                        title: 'Xae! Xae!',
+                        imageUrl: '/ui/images/xae.jpg',
                         text: `${group.name} foi ajustado com sucesso.`,
                         showConfirmButton: false,
                         timer: 2500
@@ -46,7 +47,9 @@ var app = new Vue({
                 .catch((error) => {
                     swal({
                         type: 'error',
-                        title: error.message,
+                        // title: error.message,
+                        imageUrl: '/ui/images/xanaina.jpg',
+                        // title: "Ô Xanaina!",
                         text: `${error.response.data}`,
                         showConfirmButton: true,
                     })
