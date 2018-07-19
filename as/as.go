@@ -5,7 +5,7 @@ type Group interface {
 	Length(string) (int32, error)
 	GetInstances(string) (out []Instance, err error)
 	ListGroups() (out []GroupDetails, err error)
-	UpdateGroup(GroupDetails) (err error)
+	Update(GroupDetails) (err error)
 	Describe(string) (out GroupDetails, err error)
 }
 

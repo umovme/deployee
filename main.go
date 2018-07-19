@@ -79,7 +79,7 @@ func editGroup(w http.ResponseWriter, r *http.Request) {
 	provider := getProvider(r)
 
 	err = func(prop as.Group, group as.GroupDetails) error {
-		return prop.UpdateGroup(group)
+		return prop.Update(group)
 	}(provider, data)
 
 	data.Updating = true

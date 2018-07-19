@@ -56,8 +56,8 @@ func findGroups(c Config, groupName *string) (out []deployee_as.GroupDetails, er
 	return
 }
 
-// UpdateGroup updates AS group configuration
-func (c Config) UpdateGroup(group deployee_as.GroupDetails) (err error) {
+// Update an AS group configuration
+func (c Config) Update(group deployee_as.GroupDetails) (err error) {
 
 	session, err := c.prepareSession()
 	if err != nil {
