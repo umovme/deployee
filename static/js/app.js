@@ -27,22 +27,13 @@ var app = new Vue({
     methods: {
         update(index, group) {
             const vm = this
-            group.isUpdating = true
-            vm.$set(vm.asGroups, index, group)
+
             axios
                 .put(`${apiPrefix}/groups/${group.name}`, group)
                 .then((response) => {
 
                     vm.$set(vm.asGroups, index, response.data)
 
-                    swal({
-                        type: 'success',
-                        title: 'Xae! Xae!',
-                        imageUrl: '/ui/images/xae.jpg',
-                        text: `${group.name} foi ajustado com sucesso.`,
-                        showConfirmButton: false,
-                        timer: 2500
-                    })
                 })
                 .catch((error) => {
                     swal({

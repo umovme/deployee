@@ -82,6 +82,8 @@ func editGroup(w http.ResponseWriter, r *http.Request) {
 		return prop.UpdateGroup(group)
 	}(provider, data)
 
+	data.Updating = true
+
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
