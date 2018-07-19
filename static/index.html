@@ -63,7 +63,9 @@
                         </div>
                         <div class="field is-expanded">
                             <div class="control">
-                                <button class="button is-primary" v-on:click="update(index, group)">Update</button>
+                                <button class="button is-primary" v-on:click="update(index, group)" v-if="!group.isUpdating">Update</button>
+                                <button class="button is-primary is-loading" v-else>Update</button>
+
                             </div>
                         </div>
                     </div>

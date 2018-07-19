@@ -26,9 +26,9 @@ var app = new Vue({
     },
     methods: {
         update(index, group) {
-            console.log(group)
-            // debugger
             const vm = this
+            group.isUpdating = true
+            vm.$set(vm.asGroups, index, group)
             axios
                 .put(`${apiPrefix}/groups/${group.name}`, group)
                 .then((response) => {
