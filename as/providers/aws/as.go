@@ -35,15 +35,12 @@ func findGroups(c Config, groupName *string) (out []deployee_as.GroupDetails, er
 
 	for i := 0; i < len(awsOut.AutoScalingGroups); i++ {
 
-		// fmt.Printf("*awsOut.AutoScalingGroups[i]: %#v\n", *awsOut.AutoScalingGroups[i])
-
 		updating := false
 		totalInstances := int32(len(awsOut.AutoScalingGroups[i].Instances))
 		desired := int32(*awsOut.AutoScalingGroups[i].DesiredCapacity)
 		if totalInstances > desired || totalInstances < desired {
 			updating = true
 		}
-		fmt.Printf("*awsOut.AutoScalingGroups[i].Instances): %#v\n", len(awsOut.AutoScalingGroups[i].Instances))
 		out = append(out, deployee_as.GroupDetails{
 			Name:     *awsOut.AutoScalingGroups[i].AutoScalingGroupName,
 			Minimum:  int32(*awsOut.AutoScalingGroups[i].MinSize),
