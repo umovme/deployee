@@ -2,7 +2,6 @@ package as
 
 // Group controls a AutoScalling group
 type Group interface {
-	Length(string) (int32, error)
 	GetInstances(string) (out []Instance, err error)
 	ListGroups() (out []GroupDetails, err error)
 	Update(GroupDetails) (err error)
