@@ -22,6 +22,7 @@ type Instance struct {
 type GroupDetails struct {
 	Name     string `json:"name"`
 	Minimum  int32  `json:"min"`
+	Desired  int32  `json:"desired"`
 	Current  int32  `json:"current"`
 	Maximum  int32  `json:"max"`
 	Updating bool   `json:"isUpdating"`

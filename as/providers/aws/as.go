@@ -45,7 +45,8 @@ func findGroups(c Config, groupName *string) (out []deployee_as.GroupDetails, er
 			Name:     *awsOut.AutoScalingGroups[i].AutoScalingGroupName,
 			Minimum:  int32(*awsOut.AutoScalingGroups[i].MinSize),
 			Maximum:  int32(*awsOut.AutoScalingGroups[i].MaxSize),
-			Current:  desired,
+			Desired:  desired,
+			Current:  totalInstances,
 			Updating: updating,
 		})
 	}
@@ -68,10 +69,9 @@ func (c Config) Update(group deployee_as.GroupDetails) (err error) {
 			AutoScalingGroupName: aws.String(group.Name),
 			MaxSize:              aws.Int64(int64(group.Maximum)),
 			MinSize:              aws.Int64(int64(group.Minimum)),
-			DesiredCapacity:      aws.Int64(int64(group.Current)),
+			DesiredCapacity:      aws.Int64(int64(group.Desired)),
 		},
 	)
-
 	return
 }
 

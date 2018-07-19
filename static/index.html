@@ -65,26 +65,26 @@
                         <div class="field is-expanded has-addons">
                             <p class="control">
                                 <a class="button is-static">
-                                    Desired
+                                    Des
                                 </a>
                             </p>
                             <p class="control">
-                                <input class="input" type="number" v-model.number="group.current">
+                                <input class="input" type="number" v-model.number="group.desired">
                             </p>
                         </div>
                     </div>
 
                     <div class="column is-2">
-                        <div class="field is-expanded has-addons">
-                            <p class="control">
-                                <a class="button is-static">
-                                    Current
-                                </a>
-                            </p>
-                            <p class="control">
-                                <input class="input" type="number" disabled>
-                            </p>
-                        </div>
+                            <div class="field is-expanded has-addons">
+                                <p class="control">
+                                    <a class="button is-static">
+                                        Cur
+                                    </a>
+                                </p>
+                                <p class="control">
+                                    <input class="input" type="number" v-model.number="group.current" readonly>
+                                </p>
+                            </div>
                     </div>
                     <div class="column">
                         <button class="button is-info" v-on:click="update(index, group)" v-if="!group.isUpdating">Update</button>
