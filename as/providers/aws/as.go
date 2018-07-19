@@ -35,7 +35,7 @@ func findGroups(c Config, groupName *string) (out []deployee_as.GroupDetails, er
 
 	for i := 0; i < len(awsOut.AutoScalingGroups); i++ {
 
-		fmt.Printf("*awsOut.AutoScalingGroups[i]: %#v\n", *awsOut.AutoScalingGroups[i])
+		// fmt.Printf("*awsOut.AutoScalingGroups[i]: %#v\n", *awsOut.AutoScalingGroups[i])
 
 		updating := false
 		totalInstances := int32(len(awsOut.AutoScalingGroups[i].Instances))
@@ -78,7 +78,7 @@ func (c Config) Update(group deployee_as.GroupDetails) (err error) {
 	return
 }
 
-// Describe a group in AWS
+// Describe an AS group in AWS Cloud
 func (c Config) Describe(groupName string) (out deployee_as.GroupDetails, err error) {
 
 	list, err := findGroups(c, &groupName)
