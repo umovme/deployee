@@ -12,25 +12,30 @@
 
 <body>
     <div id="app">
+        <section class="hero is-dark ">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">
+                        List of AS Groups
+                    </h1>
+                </div>
+            </div>
+        </section>
         <section class="section">
             <div class="container">
-                <h1 class="title">
-                    List of AS Groups
-                </h1>
+                <div class="field">
 
-                <div class="field is-horizontal">
-                    <div class="select is-large">
+                    <div class="select">
                         <select v-model="regionSelected">
                             <option v-for="(region, index) in regions" :value="region.name"> {{ region.pretty }}</option>
                         </select>
                     </div>
                 </div>
+                <br>
+                <div class="columns" v-for="(group, index) in asGroups" style="border-top: 2px solid #f5f5f5">
+                    <div class="column is-3"><p class="has-text-right">{{ group.name }}</p>   </div>
 
-                <div class="field is-horizontal" v-for="(group, index) in asGroups">
-                    <div class="field-label is-expanded">
-                        <label class="label">{{ group.name }}</label>
-                    </div>
-                    <div class="field-body">
+                    <div class="column is-2">
                         <div class="field is-expanded has-addons">
                             <p class="control">
                                 <a class="button is-static">
@@ -41,7 +46,10 @@
                                 <input class="input" type="number" v-model.number="group.min">
                             </p>
                         </div>
-                        <div class="field is-normal has-addons">
+                    </div>
+
+                    <div class="column is-2">
+                        <div class="field is-expanded has-addons">
                             <p class="control">
                                 <a class="button is-static">
                                     Max
@@ -51,6 +59,22 @@
                                 <input class="input" type="number" v-model.number="group.max">
                             </p>
                         </div>
+                    </div>
+
+                    <div class="column is-2">
+                        <div class="field is-expanded has-addons">
+                            <p class="control">
+                                <a class="button is-static">
+                                    Desired
+                                </a>
+                            </p>
+                            <p class="control">
+                                <input class="input" type="number" v-model.number="group.current">
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="column is-2">
                         <div class="field is-expanded has-addons">
                             <p class="control">
                                 <a class="button is-static">
@@ -58,16 +82,13 @@
                                 </a>
                             </p>
                             <p class="control">
-                                <input class="input" type="number" v-model.number="group.current">
+                                <input class="input" type="number" disabled>
                             </p>
                         </div>
-                        <div class="field is-expanded">
-                            <div class="control">
-                                <button class="button is-primary" v-on:click="update(index, group)" v-if="!group.isUpdating">Update</button>
-                                <button class="button is-primary is-loading" v-else>Update</button>
-
-                            </div>
-                        </div>
+                    </div>
+                    <div class="column">
+                        <button class="button is-info" v-on:click="update(index, group)" v-if="!group.isUpdating">Update</button>
+                        <button class="button is-info is-loading" v-else>Update</button>
                     </div>
                 </div>
             </div>
