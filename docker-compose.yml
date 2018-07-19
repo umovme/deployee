@@ -1,0 +1,10 @@
+version: '3'
+services:
+  deployee:
+    build: .
+    image: deployee
+    # environment:
+        # - AWS_ACCESS_KEY_ID=xxxxx
+        # - AWS_SECRET_ACCESS_KEY=yyyyy
+    ports:
+        - 3001:3001
