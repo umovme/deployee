@@ -20,7 +20,8 @@ func main() {
 
 	apiRouter := r.PathPrefix("/api").Subrouter()
 	apiRouter.HandleFunc("/groups", allGroups)
-	apiRouter.HandleFunc("/groups/{id}", editGroup).Methods("OPTIONS", "GET", "PUT")
+	apiRouter.HandleFunc("/groups/{id}", editGroup).Methods("OPTIONS", "PUT")
+	apiRouter.HandleFunc("/groups/{id}", showGroup).Methods("GET")
 	apiRouter.HandleFunc("/regions", allRegions)
 
 	// static files on `./static` dir
@@ -36,6 +37,26 @@ func main() {
 	http.Handle("/", r)
 
 	log.Fatal(http.ListenAndServe(":3001", logRequest(http.DefaultServeMux)))
+}
+
+//TODO refactor this shit
+func showGroup(w http.ResponseWriter, r *http.Request) {
+	provider := getProvider(r)
+
+	vars := mux.Vars(r)
+	groupName := vars["id"]
+
+	result, err := func(prop as.Group) (as.GroupDetails, error) {
+		return prop.Describe(groupName)
+	}(provider)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(result)
 }
 
 func editGroup(w http.ResponseWriter, r *http.Request) {
