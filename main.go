@@ -46,7 +46,7 @@ func showGroup(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	groupName := vars["id"]
 
-	result, err := func(prop as.Group) (as.GroupDetails, error) {
+	groupDesc, err := func(prop as.Group) (as.GroupDetails, error) {
 		return prop.Describe(groupName)
 	}(provider)
 
@@ -55,8 +55,19 @@ func showGroup(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	instances, err := func(prop as.Group) ([]as.Instance, error) {
+		return prop.GetInstances(groupName)
+	}(provider)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	groupDesc.Instances = instances
+
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(result)
+	json.NewEncoder(w).Encode(groupDesc)
 }
 
 func editGroup(w http.ResponseWriter, r *http.Request) {

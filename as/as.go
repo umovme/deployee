@@ -26,4 +26,6 @@ type GroupDetails struct {
 	Current  int32  `json:"current"`
 	Maximum  int32  `json:"max"`
 	Updating bool   `json:"isUpdating"`
+
+	Instances []Instance `json:"instances,omitempty"`
 }
