@@ -6,7 +6,8 @@ var app = new Vue({
         return {
             asGroups: [],
             regions: [],
-            regionSelected: ""
+            regionSelected: "",
+            isLoading: true
         }
     },
     created() {
@@ -19,9 +20,14 @@ var app = new Vue({
             this.regionSelected = region[0].name
         },
         regionSelected(region) {
+            this.isLoading = true
+            const vm = this
             axios
                 .get(`${apiPrefix}/groups?region=${region}`)
-                .then(response => (this.asGroups = response.data))
+                .then(response => {
+                    this.asGroups = response.data
+                    vm.isLoading = false
+                })
         }
     },
     methods: {
