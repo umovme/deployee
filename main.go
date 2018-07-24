@@ -41,23 +41,20 @@ func main() {
 
 //TODO refactor this shit
 func showGroup(w http.ResponseWriter, r *http.Request) {
-	provider := getProvider(r)
+	var provider as.Group
+	provider = getProvider(r)
 
 	vars := mux.Vars(r)
 	groupName := vars["id"]
 
-	groupDesc, err := func(prop as.Group) (as.GroupDetails, error) {
-		return prop.Describe(groupName)
-	}(provider)
+	groupDesc, err := provider.Describe(groupName)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	instances, err := func(prop as.Group) ([]as.Instance, error) {
-		return prop.GetInstances(groupName)
-	}(provider)
+	instances, err := provider.GetInstances(groupName)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -87,19 +84,17 @@ func editGroup(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 
-	provider := getProvider(r)
+	var provider as.Group
+	provider = getProvider(r)
 
-	err = func(prop as.Group, group as.GroupDetails) error {
-		return prop.Update(group)
-	}(provider, data)
-
-	data.Updating = true
+	err = provider.Update(data)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
+	data.Updating = true
 	json.NewEncoder(w).Encode(data)
 
 }
@@ -113,11 +108,10 @@ func logRequest(handler http.Handler) http.Handler {
 
 func allGroups(w http.ResponseWriter, r *http.Request) {
 
-	provider := getProvider(r)
+	var provider as.Group
+	provider = getProvider(r)
 
-	result, err := func(prop as.Group) ([]as.GroupDetails, error) {
-		return prop.ListGroups()
-	}(provider)
+	result, err := provider.ListGroups()
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
