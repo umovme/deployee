@@ -1,11 +1,11 @@
 package aws
 
 import (
-	"reflect"
 	"testing"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/go-test/deep"
 )
 
 type fields struct {
@@ -38,11 +38,8 @@ func TestConfig_prepareSession(t *testing.T) {
 				return
 			}
 
-			// fmt.Printf("v1: %s\nv2: %s\n", reflect.TypeOf(gotSess).String(), reflect.TypeOf(tt.wantSess).String())
-
-			if !reflect.DeepEqual(gotSess, tt.wantSess) {
-				// t.Errorf("\n%#v\n%#v", gotSess, tt.wantSess)
-				t.Errorf("Config.prepareSession() = %#v\n want %#v", gotSess, tt.wantSess)
+			if diff := deep.Equal(gotSess, tt.wantSess); diff != nil {
+				t.Errorf("Config.prepareSession() = %#v", diff)
 			}
 		})
 	}
